@@ -1,28 +1,25 @@
 # Import question builder class
 from library.question_types import QuestionBuilder
-import pytest
-
 # Importing setlog file for logging purpose
 from library.setlog import Logger
 loggerObj = Logger()
 logger = loggerObj.setLogger("logs")
 
+
 # Testcase 1 : This testcase will sign-in and create survey with 4 questions
-def test_createSurveyWithQuesAndSignOut(setUpWeb,codexFile):
+def test_createSurveyWithQuesAndSignOut(setUpWeb, codexFile):
     driver = setUpWeb
     driver.get("http://surveymonkey.com")
     driver.maximize_window()
-    QB = QuestionBuilder(driver,codexFile)
+    QB = QuestionBuilder(driver, codexFile)
     logger.info("Executing Testcase 1...........")
     logger.info("Signing in..........")
 
     # User sign in
-    rv = QB.userSignIn()
-    assert rv
-
+    assert QB.userSignIn()
     # create survey
     rv = QB.createSurvey("survey 1")
-    if rv == False:
+    if not rv:
         logger.info("survey creation failed")
         QB.tearDown()
         assert rv
@@ -31,7 +28,7 @@ def test_createSurveyWithQuesAndSignOut(setUpWeb,codexFile):
 
     # Question 1 : Single text question
     rv = QB.web_addSingleTextTypeOfQueUsingAddNextQueButton("SM web automaton demo")
-    if rv is False:
+    if not rv:
         logger.info("Failed to add single text type of question")
         QB.tearDown()
         assert rv
@@ -40,7 +37,7 @@ def test_createSurveyWithQuesAndSignOut(setUpWeb,codexFile):
 
     # Question 2 : Multiple choice question
     rv = QB.web_addMultipleChoiceTypeOfQueUsingAddNextQueButton("How often do you use SM?")
-    if rv is False:
+    if not rv:
         logger.info("Failed to add multiple choice type of question")
         QB.tearDown()
         assert rv
@@ -49,41 +46,39 @@ def test_createSurveyWithQuesAndSignOut(setUpWeb,codexFile):
 
     # Question 3 : Dropdown question
     rv = QB.web_addDropDownTypeOfQueUsingAddNextQueButton("Did you get meaningful data from survey analysis?")
-    if rv is False:
+    if not rv:
         logger.info("Failed to add Dropdown type of question")
         QB.tearDown()
         assert rv
     else:
         logger.info("Added Dropdown type of question")
-
-    #sign out
+    # sign out
     logger.info("Signing out..........")
     rv = QB.signOutUserLogin()
-    if rv is False:
+    if not rv:
         logger.info("Testcase 1 failed")
-        assert rv
     else:
         logger.info("successfully signout")
         logger.info("Testcase 1 passed")
-        QB.tearDown()
+    QB.tearDown()
+    assert rv
 
 
 # Testcase 2 : This testcase will sign-in and create blank survey and then sign out
-def test_singInWithCreateSurveyAndSignOut(setUpWeb,codexFile):
+def test_singInWithCreateSurveyAndSignOut(setUpWeb, codexFile):
     driver = setUpWeb
     driver.get("http://surveymonkey.com")
     driver.maximize_window()
-    QB = QuestionBuilder(driver,codexFile)
+    QB = QuestionBuilder(driver, codexFile)
     logger.info("Executing Testcase 2...........")
     logger.info("Signing in..........")
 
     # User sign in
-    rv = QB.userSignIn()
-    assert rv
+    assert QB.userSignIn()
 
     # create survey
     rv = QB.createSurvey("survey 2")
-    if rv == False:
+    if not rv:
         logger.info("survey creation failed")
         QB.tearDown()
         assert rv
@@ -92,7 +87,7 @@ def test_singInWithCreateSurveyAndSignOut(setUpWeb,codexFile):
 
     # Question 1 : Single text question
     rv = QB.web_addSingleTextTypeOfQueUsingAddNextQueButton("SM web automaton demo")
-    if rv is False:
+    if not rv:
         logger.info("Failed to add single text type of question")
         QB.tearDown()
         assert rv
@@ -102,10 +97,10 @@ def test_singInWithCreateSurveyAndSignOut(setUpWeb,codexFile):
         # sign out
     logger.info("Signing out..........")
     rv = QB.signOutUserLogin()
-    if rv is False:
+    if not rv:
         logger.info("Testcase 2 failed")
-        assert rv
     else:
         logger.info("successfully signout")
         logger.info("Testcase 2 passed")
-        QB.tearDown()
+    QB.tearDown()
+    assert rv
