@@ -76,7 +76,7 @@ class QuestionBuilder():
         signout for user
         :return: True if successfully signout O.W False
         '''
-        ele = self.getWebElement("navigateUpTripleLineButton")
+        ele = self.getWebElement("clickNextToCollectResponses")
         if not self.click_element(ele):
             return False
         rv = self.waitForElement("wheelButtonForSignOut")

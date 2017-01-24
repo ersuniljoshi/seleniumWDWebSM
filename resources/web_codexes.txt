@@ -18,7 +18,7 @@ selectDropdownQueTypeUsingDropdown  xpath   ".//a[@data-action='DropdownQuestion
 dropDownQueTypeRow1 xpath   ".//table[@id='rows']/tbody/tr[3]/td[2]/div/div[1]"
 dropDownQueTypeRow2 xpath   ".//table[@id='rows']/tbody/tr[4]/td[2]/div/div[1]"
 saveQuestion    xpath  ".//div[@class='buttons']/a[@class='btn teal save']"
-navigateUpTripleLineButton  xpath   ".//div[@class='nav-breadcrumbs']/a[@href='/home/']"
+clickNextToCollectResponses id  "sendSurvey"
 wheelButtonForSignOut   xpath   ".//a[@id='userAcctTab_MainMenu']"
 signOutButton   xpath   ".//a[@href='/user/sign-out/']"
 Notifier_Saving id  "notifier-saving"
