@@ -23,7 +23,7 @@ def browser(request):
 def setUpWeb(browser):
     desired_caps = {}
     desired_caps['platformName'] = 'Linux'
-    desired_caps['platformVersion'] = '51.0.2704.106'
+    desired_caps['platformVersion'] = '56.0.2924.87'
     desired_caps['browserName'] = browser
     driver = webdriver.Remote('http://localhost:4444/wd/hub', desired_caps)
     return driver
