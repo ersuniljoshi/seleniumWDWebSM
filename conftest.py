@@ -1,4 +1,3 @@
-# Using appium webdriver to automate
 from selenium import webdriver
 import pytest
 import os
@@ -23,17 +22,21 @@ def codexFile(request):
 def browser(request):
     return request.config.getoption("--browser").lower()
 
+
 @pytest.fixture
 def mode(request):
     return request.config.getoption("--mode").lower()
+
 
 @pytest.fixture
 def platformName(request):
     return request.config.getoption("--platformName").lower()
 
+
 @pytest.fixture
 def platformVersion(request):
     return request.config.getoption("--platformVersion").lower()
+
 
 @pytest.fixture
 def hub_url(request):
@@ -41,7 +44,7 @@ def hub_url(request):
 
 
 @pytest.fixture(scope="function")
-def setUpWeb(browser,mode,platformName,platformVersion,hub_url):
+def setUpWeb(browser, mode, platformName, platformVersion, hub_url):
     if mode == 'local':
         if browser == 'chrome':
             driver = webdriver.Chrome()
@@ -59,7 +62,6 @@ def setUpWeb(browser,mode,platformName,platformVersion,hub_url):
         return driver
     else:
         print "no mode"
-
 
 
 @pytest.mark.hookwrapper
