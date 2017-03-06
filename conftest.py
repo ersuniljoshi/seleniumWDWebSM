@@ -10,6 +10,8 @@ def pytest_addoption(parser):
     parser.addoption("--mode", action="store", default="local", help="mode: local or grid")
     parser.addoption("--platformName", action="store", default="Linux", help="name: Linux")
     parser.addoption("--platformVersion", action="store", default="55.0", help="version: 55.0")
+    parser.addoption("--hub_url", action="store", default="http://localhost:4444/wd/hub",
+                     help="url: http://localhost:4444/wd/hub")
 
 
 @pytest.fixture
@@ -33,12 +35,15 @@ def platformName(request):
 def platformVersion(request):
     return request.config.getoption("--platformVersion")
 
+@pytest.fixture
+def hub_url(request):
+    return request.config.getoption("--hub_url").lower()
+
+
 @pytest.fixture(scope="function")
-def setUpWeb(browser,mode,platformName,platformVersion):
+def setUpWeb(browser,mode,platformName,platformVersion,hub_url):
     if mode == 'local':
         if browser == 'chrome':
-            #chromedriver = "/usr/local/bin/chromedriver"
-            #driver = webdriver.Chrome(chromedriver)
             driver = webdriver.Chrome()
             driver.maximize_window()
         elif browser == 'firefox':
@@ -52,7 +57,7 @@ def setUpWeb(browser,mode,platformName,platformVersion):
         desired_caps['platformName'] = platformName
         desired_caps['platformVersion'] = platformVersion
         desired_caps['browserName'] = browser
-        driver = webdriver.Remote('http://localhost:4444/wd/hub', desired_caps)
+        driver = webdriver.Remote(hub_url, desired_caps)
         return driver
     else:
         print "no mode"
