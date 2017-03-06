@@ -25,6 +25,38 @@
     options : web
     
     default : "web"
+
+* --hub_url
+
+    usage   : Run script on the remote url of the selenium hub
+
+    options : "http://localhost:4444/wd/hub"
+
+    default : "http://localhost:4444/wd/hub"
+
+* --platformName
+
+    usage   : Run script on the specified platform name
+
+    options : "Linux"
+
+    default : "Linux"
+
+* --platformVersion
+
+    usage   : Run script on the specified platform version
+
+    options : "55.0 or 56.0.2924.87"
+
+    default : "56.0.2924.87"
+
+* --mode
+
+    usage   : Run script on the local or grid
+
+    options : "local or grid"
+
+    default : "local"
     
 ## Pytest built-in Command Line Parameters/Options for project :
 
@@ -36,4 +68,5 @@
              
 ## Commmand to run script :
 
-   py.test --browser="chrome" --codexFile=web test-path --html=path-for-report-file --junitxml=path-for-junit-file
+   py.test -v -s testfile --browser='chrome' --hub_url='hub_url/wd/hub'
+   --mode='grid' --platformName='Linux' --platformVersion='55.0' --codexFile=web test-path --html=path-for-report-file --junitxml=path-for-junit-file

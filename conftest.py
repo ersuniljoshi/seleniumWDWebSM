@@ -16,7 +16,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture
 def codexFile(request):
-    return request.config.getoption("--codexFile").lower()
+    return request.config.getoption("--codexFile")
 
 
 @pytest.fixture
@@ -33,7 +33,7 @@ def platformName(request):
 
 @pytest.fixture
 def platformVersion(request):
-    return request.config.getoption("--platformVersion")
+    return request.config.getoption("--platformVersion").lower()
 
 @pytest.fixture
 def hub_url(request):
@@ -45,10 +45,8 @@ def setUpWeb(browser,mode,platformName,platformVersion,hub_url):
     if mode == 'local':
         if browser == 'chrome':
             driver = webdriver.Chrome()
-            driver.maximize_window()
         elif browser == 'firefox':
             driver = webdriver.Firefox()
-            driver.maximize_window()
         else:
             print "no specified browser"
         return driver
