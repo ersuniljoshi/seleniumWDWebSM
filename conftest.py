@@ -9,25 +9,25 @@ def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome", help="my option: firefox or chrome")
     parser.addoption("--mode", action="store", default="local", help="mode: local or grid")
     parser.addoption("--platformName", action="store", default="Linux", help="name: Linux")
-    parser.addoption("--platformVersion", action="store", default="56.0.2924.87", help="version: 56.0.2924.87")
+    parser.addoption("--platformVersion", action="store", default="55.0", help="version: 55.0")
 
 
 @pytest.fixture
 def codexFile(request):
-    return request.config.getoption("--codexFile")
+    return request.config.getoption("--codexFile").lower()
 
 
 @pytest.fixture
 def browser(request):
-    return request.config.getoption("--browser")
+    return request.config.getoption("--browser").lower()
 
 @pytest.fixture
 def mode(request):
-    return request.config.getoption("--mode")
+    return request.config.getoption("--mode").lower()
 
 @pytest.fixture
 def platformName(request):
-    return request.config.getoption("--platformName")
+    return request.config.getoption("--platformName").lower()
 
 @pytest.fixture
 def platformVersion(request):
@@ -37,8 +37,9 @@ def platformVersion(request):
 def setUpWeb(browser,mode,platformName,platformVersion):
     if mode == 'local':
         if browser == 'chrome':
-            chromedriver = "/usr/local/bin/chromedriver"
-            driver = webdriver.Chrome(chromedriver)
+            #chromedriver = "/usr/local/bin/chromedriver"
+            #driver = webdriver.Chrome(chromedriver)
+            driver = webdriver.Chrome()
             driver.maximize_window()
         elif browser == 'firefox':
             driver = webdriver.Firefox()
@@ -55,6 +56,7 @@ def setUpWeb(browser,mode,platformName,platformVersion):
         return driver
     else:
         print "no mode"
+
 
 
 @pytest.mark.hookwrapper
